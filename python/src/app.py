@@ -88,16 +88,16 @@ while num_turns_taken < 50 and is_conversation_going:
         is_conversation_going = False
         break
 
-    # Make requests to OpenAI API
+    # Make requests to OpenAI API host2
     response_message = host2.make_request(num_requests)
     num_requests += 1
-
-    print("Updating message lists.")
-    
+    # The response from host2 is used as input for host1
     host1.conversation_history.append({'role': 'user', 'content': response_message})
 
+    # Make requests to OpenAI API host1
     response_message = host1.make_request(num_requests)
     num_requests += 1
+    # The response from host1 is used as input for host2
     host2.conversation_history.append({'role': 'user', 'content': response_message})
 
     num_turns_taken += 1
